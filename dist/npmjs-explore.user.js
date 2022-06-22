@@ -2,9 +2,9 @@
 // @name         npmjs-explore
 // @name:zh      npmjs文件查看
 // @namespace    https://github.com/lisonge
-// @version      1.0.0
+// @version      1.0.1
 // @author       lisonge
-// @description  description
+// @description  npmjs-explore/npmjs文件查看
 // @license      ISC
 // @icon         https://i.songe.li/favicon.svg
 // @homepage     https://github.com/lisonge/npmjs-explore#readme
@@ -15,7 +15,7 @@
 // @require      https://cdn.jsdelivr.net/npm/preact@10.8.1/dist/preact.min.js
 // ==/UserScript==
 
-// use vite-plugin-monkey@0.2.13 at 2022-06-22T07:55:48.680Z
+// use vite-plugin-monkey@0.2.13 at 2022-06-22T08:04:16.438Z
 
 (function(require$$0) {
   var _a;

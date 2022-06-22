@@ -6,6 +6,11 @@ npmjs文件查看
 
 因为 npmjs Explore 不对个人用户开放, 但是我们可以借助 jsdelivr/unpkg 来查看文件
 
+## install
+
+- [greasyfork](https://greasyfork.org/zh-CN/scripts/446853)
+- [github](https://github.com/lisonge/npmjs-explore/raw/main/dist/npmjs-explore.user.js)
+
 ## screenshot
 
 ![image](./screenshot/Snipaste_2022-06-22_15-51-26.png)
