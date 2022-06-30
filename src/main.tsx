@@ -1,8 +1,12 @@
-import { render } from 'preact'
+import { render } from 'preact';
 
 const list = location.pathname.split('/');
-const packageName = list[2];
-const version = list[4] ?? 'latest';
+let packageName = list[2];
+let version = list[4] ?? 'latest';
+if (packageName.startsWith('@')) {
+    packageName = list[2] + '/' + list[3];
+    version = list[5] ?? 'latest';
+}
 
 const jsdelivrUrl = `https://cdn.jsdelivr.net/npm/${packageName}@${version}/`;
 const unpkgUrl = `https://unpkg.com/browse/${packageName}@${version}/`;
@@ -14,12 +18,12 @@ const App = (
         }}
     >
         <a
-            href={jsdelivrUrl}
-            title={jsdelivrUrl}
+            href={unpkgUrl}
+            title={unpkgUrl}
             target="_blank"
             style={{ color: '#bb2e3e', textDecoration: 'none' }}
         >
-            jsdelivr
+            unpkg
         </a>
         <span
             style={{
@@ -28,12 +32,12 @@ const App = (
             }}
         ></span>
         <a
-            href={unpkgUrl}
-            title={unpkgUrl}
+            href={jsdelivrUrl}
+            title={jsdelivrUrl}
             target="_blank"
             style={{ color: '#bb2e3e', textDecoration: 'none' }}
         >
-            unpkg
+            jsdelivr
         </a>
     </div>
 );
@@ -42,8 +46,11 @@ const App = (
     const box = document.querySelector<HTMLElement>(
         `span[title="${packageName}"]`
     )?.parentElement;
-    if (!box) return;
+    if (!box) {
+        console.warn('npmjs-explore inject failed');
+        return;
+    }
     const container = document.createElement('div');
     box.appendChild(container);
-    render(App, container)
+    render(App, container);
 })();

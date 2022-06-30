@@ -12,6 +12,7 @@ export default defineConfig({
                 icon: 'https://i.songe.li/favicon.svg',
                 namespace: 'https://github.com/lisonge',
                 match: ['https://www.npmjs.com/package/*'],
+                include: [/^https:\/\/www.npmjs.com\/package\/.*/],
                 name: {
                     '': 'npmjs-explore',
                     zh: 'npmjs文件查看',
