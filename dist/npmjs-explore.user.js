@@ -2,7 +2,7 @@
 // @name         npmjs-explore
 // @name:zh      npmjs文件查看
 // @namespace    https://github.com/lisonge
-// @version      1.0.1
+// @version      1.0.2
 // @author       lisonge
 // @description  npmjs-explore/npmjs文件查看
 // @license      ISC
@@ -11,14 +11,15 @@
 // @homepageURL  https://github.com/lisonge/npmjs-explore#readme
 // @source       https://github.com/lisonge/npmjs-explore.git
 // @supportURL   https://github.com/lisonge/npmjs-explore/issues
+// @include      ^https:\/\/www.npmjs.com\/package\/.*
 // @match        https://www.npmjs.com/package/*
 // @require      https://cdn.jsdelivr.net/npm/preact@10.8.1/dist/preact.min.js
 // ==/UserScript==
 
-// use vite-plugin-monkey@0.2.13 at 2022-06-22T08:04:16.438Z
+// use vite-plugin-monkey@0.2.13 at 2022-06-30T11:04:08.719Z
 
 (function(require$$0) {
-  var _a;
+  var _a, _b;
   "use strict";
   function _interopDefaultLegacy(e2) {
     return e2 && typeof e2 === "object" && "default" in e2 ? e2 : { "default": e2 };
@@ -41,8 +42,12 @@
   const jsx = jsx$1;
   const jsxs = jsxs$1;
   const list = location.pathname.split("/");
-  const packageName = list[2];
-  const version = (_a = list[4]) != null ? _a : "latest";
+  let packageName = list[2];
+  let version = (_a = list[4]) != null ? _a : "latest";
+  if (packageName.startsWith("@")) {
+    packageName = list[2] + "/" + list[3];
+    version = (_b = list[5]) != null ? _b : "latest";
+  }
   const jsdelivrUrl = `https://cdn.jsdelivr.net/npm/${packageName}@${version}/`;
   const unpkgUrl = `https://unpkg.com/browse/${packageName}@${version}/`;
   const App = jsxs("div", {
@@ -50,20 +55,6 @@
       marginLeft: "20px"
     },
     children: [jsx("a", {
-      href: jsdelivrUrl,
-      title: jsdelivrUrl,
-      target: "_blank",
-      style: {
-        color: "#bb2e3e",
-        textDecoration: "none"
-      },
-      children: "jsdelivr"
-    }), jsx("span", {
-      style: {
-        display: "inline-block",
-        width: "10px"
-      }
-    }), jsx("a", {
       href: unpkgUrl,
       title: unpkgUrl,
       target: "_blank",
@@ -72,13 +63,29 @@
         textDecoration: "none"
       },
       children: "unpkg"
+    }), jsx("span", {
+      style: {
+        display: "inline-block",
+        width: "10px"
+      }
+    }), jsx("a", {
+      href: jsdelivrUrl,
+      title: jsdelivrUrl,
+      target: "_blank",
+      style: {
+        color: "#bb2e3e",
+        textDecoration: "none"
+      },
+      children: "jsdelivr"
     })]
   });
   (() => {
     var _a2;
     const box = (_a2 = document.querySelector(`span[title="${packageName}"]`)) == null ? void 0 : _a2.parentElement;
-    if (!box)
+    if (!box) {
+      console.warn("npmjs-explore inject failed");
       return;
+    }
     const container = document.createElement("div");
     box.appendChild(container);
     require$$0.render(App, container);
